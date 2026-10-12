@@ -1,0 +1,66 @@
+name: Validate and release CIAD plugin
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Validate portable manifests and build clean ZIP
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, zipfile
+          p=pathlib.Path('.')
+          m=json.loads((p/'plugin.json').read_text())
+          c=json.loads((p/'.claude-plugin/plugin.json').read_text())
+          assert m['name']==c['name']=='ciad' and m['version']==c['version']
+          a=json.loads((p/'mcp.json').read_text())['mcpServers']['ciad']
+          assert a['url']=='https://mcp.ciad.cz/mcp'
+          assert a['extensions']['com.openai']['auth']['type']=='oauth'
+          assert json.loads((p/'.mcp.json').read_text())['mcpServers']['ciad']['url']==a['url']
+          assert len(m['extensions']['com.openai']['interface']['shortDescription'])<=30
+          allowed={'plugin.json','mcp.json','.mcp.json','README.md','LICENSE'}
+          with zipfile.ZipFile('CIAD-plugin.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for f in sorted(p.rglob('*')):
+                  if f.is_symlink(): raise RuntimeError('Symbolic link in plugin')
+                  name=f.as_posix()
+                  if f.is_file() and (name in allowed or name.startswith(('assets/','skills/','.claude-plugin/','.agents/plugins/'))):
+                      assert f.stat().st_size<5_000_000
+                      z.write(f,name)
+          PY
+          sha256sum CIAD-plugin.zip > SHA256SUMS.txt
+      - name: Check hosted public connection surface
+        run: |
+          curl --fail --silent --show-error --max-time 20 https://mcp.ciad.cz/healthz
+          curl --fail --silent --show-error --max-time 20 https://mcp.ciad.cz/.well-known/oauth-protected-resource/mcp
+          test "$(curl --silent --max-time 20 -o /dev/null -w '%{http_code}' https://mcp.ciad.cz/api/tenants)" = 404
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Create package release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, zipfile
+          p=pathlib.Path('.')
+          assert os.environ['RELEASE_TAG']=='v'+json.loads((p/'plugin.json').read_text())['version']
+          allowed={'plugin.json','mcp.json','.mcp.json','README.md','LICENSE'}
+          with zipfile.ZipFile('CIAD-plugin.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for f in sorted(p.rglob('*')):
+                  name=f.as_posix()
+                  if f.is_file() and (name in allowed or name.startswith(('assets/','skills/','.claude-plugin/','.agents/plugins/'))): z.write(f,name)
+          PY
+          sha256sum CIAD-plugin.zip > SHA256SUMS.txt
+          gh release create "$RELEASE_TAG" CIAD-plugin.zip SHA256SUMS.txt --verify-tag --title "CIAD $RELEASE_TAG" --notes "CIAD plugin for OpenAI and Anthropic. Directory publication has its own provider review process."

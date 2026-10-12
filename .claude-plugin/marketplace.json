@@ -1,0 +1,6 @@
+{
+  "name": "ciad",
+  "description": "CIAD konektor pro správu AI pracovních podkladů, české firmy a AI Act.",
+  "owner": {"name": "CIAD", "email": "office@ciad.cz"},
+  "plugins": [{"name": "ciad", "source": "./", "version": "0.2.0", "description": "AI pracovní prostor, české firmy a AI Act"}]
+}

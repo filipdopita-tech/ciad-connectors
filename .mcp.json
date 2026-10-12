@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "ciad": {
+      "type": "http",
+      "url": "https://mcp.ciad.cz/mcp"
+    }
+  }
+}

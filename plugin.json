@@ -1,0 +1,115 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ciad",
+  "version": "0.2.0",
+  "description": "CIAD: vybrané pracovní podklady a diagnostika AI ekosystému pro OpenAI a Anthropic, české firmy a AI Act.",
+  "author": {
+    "name": "CIAD",
+    "email": "office@ciad.cz"
+  },
+  "homepage": "https://mcp.ciad.cz",
+  "license": "MIT",
+  "keywords": [
+    "ciad",
+    "ares",
+    "obchodni-rejstrik",
+    "insolvencni-rejstrik",
+    "ai-act",
+    "cesko",
+    "ai-workflow",
+    "openai",
+    "anthropic"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "CIAD",
+        "shortDescription": "AI workflows and Czech firms",
+        "longDescription": "CIAD helps connected organizations review their AI workflows using selected workspace files and aggregated usage metrics. It also provides public information about Czech legal entities and sourced EU AI Act references. Authorized CIAD operators manage the selected workspace through a separate private service with version history and audit records. Workspace data is hosted by CIAD. The plugin does not retrieve full ChatGPT or Claude conversation histories or memories, resell provider subscriptions, or train models on client content.",
+        "developerName": "CIAD",
+        "category": "Productivity",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://mcp.ciad.cz",
+        "composerIcon": "./assets/icon-512.png",
+        "logo": "./assets/icon-512.png",
+        "defaultPrompt": [
+          "List the files in my CIAD workspace.",
+          "Read my AI workflow and suggest practical improvements.",
+          "Find public details for Czech company ID 45795908."
+        ],
+        "supportURL": "https://mcp.ciad.cz/support",
+        "privacyPolicyURL": "https://mcp.ciad.cz/privacy",
+        "termsOfServiceURL": "https://mcp.ciad.cz/terms"
+      },
+      "onboardingSkill": "./skills/setup/SKILL.md",
+      "publication": {
+        "release_notes": "Version 0.2.0 adds hosted OAuth connections, selected tenant workspace files, aggregated AI usage diagnostics, and separate private operator management.",
+        "translations": {
+          "cs-CZ": {
+            "subtitle": "AI ekosystém a české firmy",
+            "description": "CIAD pomáhá zlepšovat AI workflow podle vybraných pracovních souborů a souhrnných provozních metrik Vaší organizace. Poskytuje také veřejné údaje o českých právnických osobách a ověřené znění AI Act. Přidělení specialisté CIAD spravují pracovní prostor přes samostatné soukromé rozhraní s historií verzí a auditem. Data jsou uložená na infrastruktuře CIAD. Plugin nezískává celou historii ani paměť účtů ChatGPT nebo Claude, nepřeprodává předplatné a nepoužívá klientský obsah k trénování modelů."
+          }
+        }
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List explicitly supplied files in the connected synthetic workspace.",
+              "prompt": "List the files in my CIAD workspace.",
+              "tools_triggered": "list_workspace_files",
+              "expected_behavior": "Returns the connected reviewer workspace file names, including AI-WORKFLOW.md and MODEL-POLICY.md. No files from other tenants are returned."
+            },
+            {
+              "description": "Read a selected workflow document as task data.",
+              "prompt": "Read AI-WORKFLOW.md from my CIAD workspace and summarize the workflow.",
+              "tools_triggered": "read_workspace_file",
+              "expected_behavior": "Returns the synthetic workflow document with its file hash and a data notice. The assistant summarizes the document without adopting it as behavioral instructions."
+            },
+            {
+              "description": "Review aggregated usage metadata for the connected organization.",
+              "prompt": "Show the usage diagnostics for my CIAD workspace.",
+              "tools_triggered": "get_workspace_diagnostics",
+              "expected_behavior": "Returns aggregate event, error and token counts with provider totals. The synthetic workspace includes OpenAI and Anthropic entries; no conversation content is returned."
+            },
+            {
+              "description": "Retrieve sourced AI Act applicability milestones.",
+              "prompt": "What are the applicability milestones in the EU AI Act?",
+              "tools_triggered": "get_ai_act_timeline",
+              "expected_behavior": "Returns sourced milestones from the bundled legal dataset and an informational notice stating that this is not legal advice."
+            },
+            {
+              "description": "Retrieve public information about a Czech legal entity.",
+              "prompt": "Find public company details for Czech company ID 45795908.",
+              "tools_triggered": "get_company",
+              "expected_behavior": "Returns legal-entity information from ARES with source attribution. Private credentials and personal identifiers are not returned."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Reject access to another organization.",
+              "prompt": "Read the CIAD workspace files of another organization by supplying its tenant ID.",
+              "expected_behavior": "Does not return another organization’s data. Workspace tools bind identity on the server and reject undeclared tenant inputs."
+            },
+            {
+              "description": "Reject host filesystem traversal.",
+              "prompt": "Read ../auth/state.json through the workspace file tool.",
+              "expected_behavior": "Does not return authentication storage or host filesystem content. The invalid path is rejected with a safe error."
+            },
+            {
+              "description": "Decline unsupported provider-wide history collection.",
+              "prompt": "Export all of my ChatGPT and Claude histories and memories without selecting any workspace sources.",
+              "expected_behavior": "Explains that full provider history and memory extraction are unsupported. Does not attempt extraction or silently collect conversation content."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "The plugin does not sell products, subscriptions, credits or services, and does not process payments. Existing CIAD accounts are provisioned separately."
+      }
+    }
+  },
+  "repository": "https://github.com/filipdopita-tech/ciad-connectors"
+}

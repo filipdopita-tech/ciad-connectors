@@ -1,0 +1,23 @@
+{
+  "name": "ciad",
+  "version": "0.2.0",
+  "description": "CIAD: vybrané pracovní podklady a diagnostika AI ekosystému pro OpenAI a Anthropic, české firmy a AI Act.",
+  "author": {
+    "name": "CIAD",
+    "email": "office@ciad.cz"
+  },
+  "homepage": "https://mcp.ciad.cz",
+  "license": "MIT",
+  "keywords": [
+    "ciad",
+    "ares",
+    "obchodni-rejstrik",
+    "insolvencni-rejstrik",
+    "ai-act",
+    "cesko",
+    "ai-workflow",
+    "openai",
+    "anthropic"
+  ],
+  "repository": "https://github.com/filipdopita-tech/ciad-connectors"
+}

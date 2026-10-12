@@ -1,0 +1,5 @@
+{
+  "name": "ciad",
+  "interface": {"displayName": "CIAD"},
+  "plugins": [{"name": "ciad", "source": {"source": "local", "path": "./"}, "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"}, "category": "Productivity"}]
+}
