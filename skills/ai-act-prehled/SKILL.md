@@ -15,6 +15,8 @@ Veškerá fakta o AI Act čerpej výhradně z nástrojů konektoru CIAD. Nic ned
 
 ## Pravidla
 
+- Při chybě nástroje nebo chybějícím znění uveď chybějící podklad. Neznámý formát není úspěšné načtení a nedoplňuje se z paměti. Zdroj a verzi znění přebírej z výstupu; zkrácený podklad označ jako výňatek.
+
 - U každého tvrzení cituj článek a odstavec (například „čl. 99 odst. 6“) tak, jak je uvádí výstup nástroje.
 - Sankce: podnik = vyšší z hodnot (procento obratu nebo pevná částka). Malé a střední podniky = nižší z hodnot (čl. 99 odst. 6). Malé podniky se střední tržní kapitalizací = nižší z hodnot u odst. 4 a 5 (čl. 99 odst. 6a).
 - Čl. 4 (gramotnost) a čl. 27 (posouzení dopadu na základní práva) nemají v čl. 99 vlastní sazbu. Vždy to uveď podle pole `bezVlastniSazby` a dodej, že pravidla sankcí stanoví členské státy.

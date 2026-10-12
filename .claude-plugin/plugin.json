@@ -1,18 +1,12 @@
 {
   "name": "ciad",
-  "displayName": "CIAD",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "CIAD: vybrané pracovní podklady a diagnostika AI ekosystému pro OpenAI a Anthropic, české firmy a AI Act.",
   "author": {
     "name": "CIAD",
     "email": "office@ciad.cz"
   },
   "homepage": "https://mcp.ciad.cz",
-  "icon": "./assets/icon-512.png",
-  "documentationUrl": "https://mcp.ciad.cz/docs",
-  "supportUrl": "https://mcp.ciad.cz/support",
-  "privacyPolicyUrl": "https://mcp.ciad.cz/privacy",
-  "termsOfServiceUrl": "https://mcp.ciad.cz/terms",
   "license": "MIT",
   "keywords": [
     "ciad",
@@ -25,5 +19,11 @@
     "openai",
     "anthropic"
   ],
-  "repository": "https://github.com/filipdopita-tech/ciad-connectors"
+  "repository": "https://github.com/filipdopita-tech/ciad-connectors",
+  "displayName": "CIAD",
+  "icon": "./assets/icon-512.png",
+  "documentationUrl": "https://mcp.ciad.cz/docs",
+  "supportUrl": "https://mcp.ciad.cz/support",
+  "privacyPolicyUrl": "https://mcp.ciad.cz/privacy",
+  "termsOfServiceUrl": "https://mcp.ciad.cz/terms"
 }

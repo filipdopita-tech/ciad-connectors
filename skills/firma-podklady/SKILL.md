@@ -29,7 +29,8 @@ Skill používá nástroje konektoru CIAD. Jiné zdroje nepoužívej a nic nesta
 - `stavZdrojeIr: AKTIVNI` znamená jen to, že v insolvenčním rejstříku existuje záznam, i historický. Neprezentuj to jako probíhající insolvenci, odkaž na výsledek `get_insolvency_records`.
 - Prázdný výsledek z ISIR napiš větou „ISIR k tomuto IČO nevrátil žádné řízení.“ Nepřidávej, že je firma v pořádku.
 - Řízení z ISIR popiš neutrálně: spisová značka, soud, stav, data zahájení a ukončení úpadku, odkaz na detail.
-- Bylo-li `zkraceno: true`, řekni, že výpis byl zkrácen.
+- Bylo-li `zkraceno: true`, řekni, že výpis byl zkrácen. U seznamu respektuj také pole o neúplném pokrytí, pokud ho nástroj vrátí; výsledek nepovažuj za úplný seznam všech shod.
+- Chyba (`isError: true`), nedostupný registr a neznámý formát nejsou úspěšný prázdný výsledek. Uveď skutečně vrácený kód a chybějící blok; odpověď nevyplňuj z paměti.
 - Nástroj `send_feedback` volej jen na výslovný pokyn uživatele.
 
 ## Závěr každého shrnutí

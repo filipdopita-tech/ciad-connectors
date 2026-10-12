@@ -26,6 +26,8 @@ Každý oddíl začíná citací z nástroje (článek, odstavec) a pokračuje n
 
 ## Pravidla
 
+- Při chybě nástroje nebo chybějícím znění uveď chybějící podklad. Neznámý formát není úspěšné načtení a nedoplňuje se z paměti. Zdroj a verzi znění přebírej z výstupu; zkrácený podklad označ jako výňatek.
+
 - Citace od návrhu odděl, ať je vidět, co je zákon a co je návrh pravidla.
 - Hodnotící přívlastky a přísliby souladu („zajišťuje plný soulad“) nepoužívej.
 - Nástroj `send_feedback` volej jen na výslovný pokyn uživatele.
