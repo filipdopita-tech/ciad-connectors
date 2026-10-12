@@ -55,6 +55,7 @@
         }
       },
       "review": {
+        "demo_recording_url": "https://github.com/filipdopita-tech/ciad-connectors/releases/download/v0.2.0/CIAD-0.2-ZIVE-OVLADANI.mp4",
         "test_cases": {
           "positive": [
             {
