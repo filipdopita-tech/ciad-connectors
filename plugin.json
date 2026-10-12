@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ciad",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CIAD: vybrané pracovní podklady a diagnostika AI ekosystému pro OpenAI a Anthropic, české firmy a AI Act.",
   "author": {
     "name": "CIAD",
@@ -46,7 +46,7 @@
       },
       "onboardingSkill": "./skills/setup/SKILL.md",
       "publication": {
-        "release_notes": "Version 0.2.0 adds hosted OAuth connections, selected tenant workspace files, aggregated AI usage diagnostics, and separate private operator management.",
+        "release_notes": "Version 0.2.1 fixes browser OAuth callback redirects and adds explicit Claude directory listing metadata.",
         "translations": {
           "cs-CZ": {
             "subtitle": "AI ekosystém a české firmy",

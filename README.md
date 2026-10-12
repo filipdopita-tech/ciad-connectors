@@ -8,13 +8,15 @@ MCP endpoint: **https://mcp.ciad.cz/mcp**. Přihlášení používá OAuth s PKC
 
 Pro Claude Code je připraven `.mcp.json` a `.claude-plugin/plugin.json`, pro Codex a ChatGPT `plugin.json` a `mcp.json`. Skills popisují práci s dostupnými nástroji. Plugin neobsahuje spustitelné skripty ani lifecycle hooks; navazuje pouze vzdálené HTTPS připojení.
 
-Instalace v Claude Code 2.1.275 nebo novějším:
+Instalace v Claude Code 2.1.281 nebo novějším:
 
 ```text
 /plugin install ciad --marketplace filipdopita-tech/ciad-connectors
 ```
 
 V Codexu přidejte GitHub marketplace `filipdopita-tech/ciad-connectors` a nainstalujte `ciad@ciad`. V ChatGPT a Claude lze také přidat vlastní MCP adresu přímo podle návodu výše. Instalace pluginu a OAuth přihlášení jsou samostatné kroky.
+
+Claude manifest nastavuje zobrazované jméno `CIAD`, ikonu a odkazy na dokumentaci, podporu, ochranu dat a podmínky. Pole pro katalog jsou součástí manifestu; jejich validaci bez varování podporuje Claude Code 2.1.281 nebo novější. [Oficiální reference manifestu](https://code.claude.com/docs/en/plugins-reference#directory-listing-fields).
 
 ## Data a správa
 
@@ -24,4 +26,4 @@ Samostatná místní synchronizace se nastavuje výslovným výběrem pracovníc
 
 [Začít](https://mcp.ciad.cz/onboarding) · [Dokumentace](https://mcp.ciad.cz/docs) · [Ochrana dat](https://mcp.ciad.cz/privacy) · [Podmínky](https://mcp.ciad.cz/terms) · [Podpora](https://mcp.ciad.cz/support). Provozovatel: Český Institut pro AI a Data z.ú., IČO 29752736, office@ciad.cz.
 
-Pluginové texty a manifesty jsou pod licencí MIT. Serverový kód a klientská data nejsou součástí veřejného balíčku. Verze 0.2.0; žádné tvrzení o partnerství s OpenAI či Anthropicem. Zveřejnění v katalogu má samostatný schvalovací proces u poskytovatele.
+Pluginové texty a manifesty jsou pod licencí MIT. Serverový kód a klientská data nejsou součástí veřejného balíčku. Verze 0.2.1; žádné tvrzení o partnerství s OpenAI či Anthropicem. Zveřejnění v katalogu má samostatný schvalovací proces u poskytovatele.
